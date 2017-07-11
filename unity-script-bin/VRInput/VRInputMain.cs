@@ -22,13 +22,7 @@ public class VRInputMain : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         CreateInputObjects();
-        SceneManager.sceneLoaded += SceneLoaded;
 	}
-
-    private void SceneLoaded(Scene scene, LoadSceneMode loadMode)
-    {
-        CreateInputObjects();
-    }
 
     void CreateInputObjects()
     {
