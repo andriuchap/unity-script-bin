@@ -86,13 +86,16 @@ public class TimerManager : MonoBehaviour
         float dt = Time.deltaTime;
         List<uint> toRemove = new List<uint>();
         List<uint> keys = new List<uint>(activeTimers.Keys);
-        for(int i = 0; i < keys.Count; i++)
+        for (int i = 0; i < keys.Count; i++)
         {
-            Timer timer = activeTimers[keys[i]];
-            timer.Tick(dt);
-            if(timer.IsFinished)
+            if (activeTimers.ContainsKey(keys[i]))
             {
-                toRemove.Add(keys[i]);
+                Timer timer = activeTimers[keys[i]];
+                timer.Tick(dt);
+                if (timer.IsFinished)
+                {
+                    toRemove.Add(keys[i]);
+                }
             }
         }
 
@@ -111,7 +114,11 @@ public class TimerManager : MonoBehaviour
 
     public static bool CancelTimer(uint handle)
     {
-        return Instance.activeTimers.Remove(handle);
+        if(Instance.activeTimers.ContainsKey(handle))
+        {
+            return Instance.activeTimers.Remove(handle);
+        }
+        return false;
     }
 
     public static float ElapsedTime(uint handle)
